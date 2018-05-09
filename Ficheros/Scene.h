@@ -31,9 +31,11 @@ public:
 		if (spotEnable)spot->enable();
 		else spot->disable();
 	}
+	void esferaLuzSpotOnOff() { esferaLuz->spotOnOff(); }
 protected:
 	Light* directional;
 	SpotLight* spot;
+	EsferaLuz* esferaLuz;
 	Camera* camera;
 	bool rotate = false;
 	bool spotEnable = true, directionalEnable = true;

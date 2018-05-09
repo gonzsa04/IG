@@ -19,8 +19,8 @@ void Entity::render(dmat4 const& modelViewMat)
 void Entity::draw() 
 { 
 	if (mesh != nullptr) {
+		material.load();//se carga el material antes de dibujar la malla
 		mesh->draw();
-		material.load();
 	}
 }
 //-------------------------------------------------------------------------
@@ -86,17 +86,21 @@ Grass::Grass(GLdouble lado, const std::string & BMP_Name) : l(lado) {
 	texture->load(BMP_Name, 0, { 0, 0, 0 }); //se carga con alpha = 0 para el color 0, 0, 0 (negro), asi hacemos transparente el fondo
 }
 
-Esfera::Esfera(GLdouble radio, const std::string & BMP_Name) : Entity(BMP_Name), r(radio) {}
+Esfera::Esfera(GLdouble radio, const std::string & BMP_Name) : Entity(BMP_Name), r(radio), quadric(gluNewQuadric()) {}
 
-Esfera::Esfera(GLdouble radio) : r(radio) {}
+Esfera::Esfera(GLdouble radio) : r(radio), quadric(gluNewQuadric()) {}
 
-EsferaLuz::EsferaLuz(GLdouble radio, const std::string & BMP_Name) : Esfera(radio, BMP_Name) 
+EsferaLuz::EsferaLuz(GLdouble radio, const std::string & BMP_Name) : Esfera(radio, BMP_Name)
 {
-	GLfloat dir[] = { 0, -1, 0 };
-	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);
+	GLfloat dir[] = { 0, -1, 0 };//direccion a la que apunta el foco de dentro
+	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);//el foco con la direccion, el angulo, el exponente y la pos de la esfera (para que este en su centro)
 }
 
-EsferaLuz::EsferaLuz(GLdouble radio) : Esfera(radio) {}
+EsferaLuz::EsferaLuz(GLdouble radio) : Esfera(radio)
+{
+	GLfloat dir[] = { 0, -1, 0 };//direccion a la que apunta el foco de dentro
+	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);//el foco con la direccion, el angulo, el exponente y la pos de la esfera (para que este en su centro)
+}
 
 ContRectangle::ContRectangle(GLdouble w, GLdouble h) {
 	mesh = Mesh::generateRectangle(w, h);
@@ -247,7 +251,7 @@ void Grass::draw() {
 void Esfera::draw() {
 	material.load();
 	if (texture != nullptr) {//si hay textura
-		texture->bind(GL_MODULATE);
+		texture->bind(GL_MODULATE);//MODULATE para que se mezclen los colores de la luz con los de la textura (por defecto REPLACE, que solo se verian los de la text)
 		gluQuadricTexture(quadric, GL_TRUE);//se le aplica la textura al objeto cuadrico
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		gluSphere(quadric, r, 500, 750);//se genera una esfera en el objeto cuadrico de radio r y densidad de vectores
@@ -258,6 +262,11 @@ void Esfera::draw() {
 		gluQuadricDrawStyle(quadric, GLU_FILL);
 		gluSphere(quadric, r, 500, 750);
 	}
+}
+
+void EsferaLuz::render(glm::dmat4 const& modelViewMat) {
+	spot.load(modelViewMat);//se pinta antes el foco
+	Esfera::render(modelViewMat);
 }
 
 void Diabolo::render(glm::dmat4 const& modelViewMat){

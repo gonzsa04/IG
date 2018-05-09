@@ -174,6 +174,9 @@ void key(unsigned char key, int x, int y)
   case 'n':
 	  scene.directionalOnOff();
 	  break;
+  case 'm':
+	  scene.esferaLuzSpotOnOff();
+	  break;
   default:
     need_redisplay = false;
     break;

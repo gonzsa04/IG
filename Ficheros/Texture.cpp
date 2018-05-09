@@ -13,7 +13,7 @@ void Texture::init() {
 void Texture::bind(GLuint mix) { // argumento para el modo de mezclar los colores
 	glBindTexture(GL_TEXTURE_2D, id); // activa la textura
 	// la función de mezcla de colores no queda guardada en el objeto
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mix);//reemplaza el color que haya por la textura
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mix);//por defecto reemplaza el color que haya por la textura (REPLACE)
 	// GL_MODULATE / GL_ADD … -> sumarian el color que haya con la textura
 }
 

@@ -173,7 +173,7 @@ public:
 class Esfera :public Entity {
 protected:
 	GLdouble r;//radio
-	GLUquadricObj *quadric = gluNewQuadric();//objeto cuadrico que reproduce una figura (en este caso esfera)
+	GLUquadricObj *quadric;//objeto cuadrico que reproduce una figura (en este caso esfera)
 public:
 	Esfera(GLdouble r, const std::string & BMP_Name);
 	Esfera(GLdouble r);
@@ -185,11 +185,17 @@ public:
 class EsferaLuz : public Esfera {
 private:
 	SpotLight spot;//luz de foco
+	bool spotEnable = true;
 public:
 	EsferaLuz(GLdouble r, const std::string & BMP_Name);
 	EsferaLuz(GLdouble r);
 	virtual ~EsferaLuz(){};
-	virtual void draw(){};
+	virtual void render(glm::dmat4 const& modelViewMat);
+	void spotOnOff() {
+		spotEnable = !spotEnable;
+		if (spotEnable)spot.enable();
+		else spot.disable();
+	}
 };
 
 //-------------------------------------------------------------------------
