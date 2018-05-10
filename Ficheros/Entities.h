@@ -27,7 +27,7 @@ public:
 
   virtual void render(glm::dmat4 const& modelViewMat);
   virtual void update(GLuint timeElapsed) {}
-  void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
+  virtual void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
   void setMaterial(Material const& mt) { material = mt; }
   void setTexture(Texture tex) { texture = &tex; };
   
@@ -191,6 +191,10 @@ public:
 	EsferaLuz(GLdouble r);
 	virtual ~EsferaLuz(){};
 	virtual void render(glm::dmat4 const& modelViewMat);
+	virtual void setModelMat(glm::dmat4 const& mMat) { 
+		Entity::setModelMat(mMat);
+		spot.setPos(mMat[3]);
+	}
 	void spotOnOff() {
 		spotEnable = !spotEnable;
 		if (spotEnable)spot.enable();
