@@ -193,7 +193,7 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat);
 	virtual void setModelMat(glm::dmat4 const& mMat) { 
 		Entity::setModelMat(mMat);
-		spot.setPos(mMat[3]);
+		spot.setPos(mMat[3]);//al establecer la posicion de la esfera, se actualiza tambien la del foco para que este la siga
 	}
 	void spotOnOff() {
 		spotEnable = !spotEnable;

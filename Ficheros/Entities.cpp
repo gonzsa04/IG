@@ -94,12 +94,14 @@ EsferaLuz::EsferaLuz(GLdouble radio, const std::string & BMP_Name) : Esfera(radi
 {
 	GLfloat dir[] = { 0, -1, 0 };//direccion a la que apunta el foco de dentro
 	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);//el foco con la direccion, el angulo, el exponente y la pos de la esfera (para que este en su centro)
+	spot.enable();//la encendemos
 }
 
 EsferaLuz::EsferaLuz(GLdouble radio) : Esfera(radio)
 {
-	GLfloat dir[] = { 0, -1, 0 };//direccion a la que apunta el foco de dentro
-	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);//el foco con la direccion, el angulo, el exponente y la pos de la esfera (para que este en su centro)
+	GLfloat dir[] = { 0, -1, 0 };
+	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);
+	spot.enable();
 }
 
 ContRectangle::ContRectangle(GLdouble w, GLdouble h) {
