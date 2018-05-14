@@ -17,6 +17,9 @@ public:
 	~Material(){}
 	virtual void load() {
 		glMaterialfv(face, GL_AMBIENT, value_ptr(ambient));
+		glMaterialfv(face, GL_AMBIENT, value_ptr(diffuse));
+		glMaterialfv(face, GL_AMBIENT, value_ptr(specular));
+		glMaterialf(face, GL_SHININESS, expF);
 		glShadeModel(sh);
 	}
 };

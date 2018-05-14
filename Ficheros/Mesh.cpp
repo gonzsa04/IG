@@ -9,30 +9,15 @@ Mesh ::~Mesh(void)
   delete[] vertices;
   delete[] colors;
   delete[] texCoords;
+  delete[] normals;
 }
 //-------------------------------------------------------------------------
 
-void Mesh::draw() 
+void Mesh::draw()
 {
-  if (vertices != nullptr) {
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_DOUBLE, 0, vertices);  // number of coordinates per vertex, type of each coordinate 
-    if (colors != nullptr) {
-      glEnableClientState(GL_COLOR_ARRAY);
-      glColorPointer(4, GL_DOUBLE, 0, colors);   // number of coordinates per color, type of each coordinate 
-    }
-	if (texCoords != nullptr){//si vamos a pintar una textura
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);//activamos el array de coordenadas de la textura (texCoords)
-		glTexCoordPointer(2, GL_DOUBLE, 0, texCoords);
-	}
-    glDrawArrays(type, 0, numVertices);   // kind of primitives, first, count
-
-	  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
-
-	
-
-  }
+	enable();
+	glDrawArrays(type, 0, numVertices);   // kind of primitives, first, count
+	disable();
 }
 //-------------------------------------------------------------------------
 
