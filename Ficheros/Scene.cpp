@@ -21,7 +21,7 @@ void Scene::init()
   //con un angulo de apertura, un exponente de dispersion y una posicion
 
   //materiales de los planetas (cada uno uno distinto)
-  Material mat1 = Material(glm::fvec4(0.0,0.0,0.0,1), glm::fvec4(0.0, 0.0, 0.0, 1), glm::fvec4(0.0, 0.0, 0.0, 1), 8.0);
+  Material mat1 = Material(glm::fvec4(30.0,10.0,1.0,1), glm::fvec4(4.0, 16.0, 22.0, 1), glm::fvec4(0.5, 5.0, 7.0, 1), 8.0);
   Material mat2 = Material(glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(1.0, 1.0, 1.0, 1), 4.0);
   Material mat3 = Material(glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(2.0, 2.0, 2.0, 1), 2.0);
   Material mat4 = Material(glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), 0.0);
@@ -49,6 +49,7 @@ void Scene::init()
   objetos.push_back(esfera2);
   objetos.push_back(esfera3);
   objetos.push_back(esferaLuz);
+  objetos.push_back(new Terreno("..//Bmps/BarrenReds.bmp"));//terreno leido del .raw de Bmps con una textura
   //objetos.push_back(new ContRectangle(500.0, 500.0, "..//Bmps/baldosaC.bmp", 5, 5));
   //objetos.push_back(new Foto(100.0, 100.0, 1, 1));
   //objetos.push_back(new ContCubo(75.0, "..//Bmps/container.bmp"));

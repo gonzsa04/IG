@@ -459,4 +459,21 @@ void Foto::render(glm::dmat4 const& modelViewMat) {
 	glLoadMatrixd(value_ptr(auxMat));//cargamos la matriz auxiliar
 	draw();
 }
+
+//dibujamos el terreno
+void Terreno::draw()
+{
+	if (texture != nullptr) {//si tiene textura la decimos que se mezcle con la luz
+		texture->bind(GL_MODULATE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		mesh->draw();
+		texture->unbind();
+	}
+	else {//si no, dibujamos los poligonos con lineas
+		glLineWidth(2);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		mesh->draw();
+		glLineWidth(1);
+	}
+}
 //-------------------------------------------------------------------------

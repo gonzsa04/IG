@@ -8,6 +8,7 @@
 #include "Texture.h"
 #include "Material.h"
 #include "SpotLight.h"
+#include "IndexMesh.h"
 
 //-------------------------------------------------------------------------
 
@@ -200,6 +201,15 @@ public:
 		if (spotEnable)spot.enable();
 		else spot.disable();
 	}
+};
+
+//una clase que genera un terreno y le añade una textura o no
+class Terreno : public Entity {
+public:
+	Terreno() { mesh = IndexMesh::generateTerrain(); };
+	Terreno(const std::string & BMP_Name) : Entity(BMP_Name) { mesh = IndexMesh::generateTerrain(); };
+	~Terreno() {};
+	virtual void draw();
 };
 
 //-------------------------------------------------------------------------

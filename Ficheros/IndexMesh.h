@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include <fstream>
 
+//clase que hace mallas a partir de un .raw
 class IndexMesh : public Mesh { // Mesh incorpora la tabla de normales
 protected:
 	GLuint* indices; // para la tabla de índices
@@ -11,7 +12,7 @@ protected:
 public:
 	IndexMesh() {
 		numIndices = 0; indices = nullptr;
-		type = GL_TRIANGLES;
+		type = GL_TRIANGLES;//la malla se va a rellenar con triangulos
 	}
 	~IndexMesh() { delete[] indices; }
 	virtual void draw();

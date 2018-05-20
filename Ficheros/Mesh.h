@@ -33,10 +33,12 @@ protected:
 	void enable(){
 		if (vertices != nullptr) {
 			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_NORMAL_ARRAY);
 			glVertexPointer(3, GL_DOUBLE, 0, vertices);  // number of coordinates per vertex, type of each coordinate 
-			glNormalPointer(GL_DOUBLE, 0, normals);
-			if (colors != nullptr) {
+			if (normals != nullptr) {//si las normales estan activadas
+				glEnableClientState(GL_NORMAL_ARRAY);
+				glNormalPointer(GL_DOUBLE, 0, normals);
+			}
+			if (colors != nullptr) {//si los colores estan activados
 				glEnableClientState(GL_COLOR_ARRAY);
 				glColorPointer(4, GL_DOUBLE, 0, colors);   // number of coordinates per color, type of each coordinate 
 			}
@@ -51,6 +53,7 @@ protected:
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 
 	GLuint numVertices = 0;
