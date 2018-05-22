@@ -269,6 +269,16 @@ void Esfera::draw() {
 void EsferaLuz::render(glm::dmat4 const& modelViewMat) {
 	spot.load(modelViewMat);//se pinta antes el foco
 	Esfera::render(modelViewMat);
+
+	/*setMvM(modelViewMat);
+	//primera piramide
+	dmat4 auxMat = modelViewMat * modelMat;//creamos una matriz auxiliar
+	auxMat = translate(auxMat, glm::dvec3(100.0, 100.0, -altura));//trasladamos en z altura para que la punta quede en el centro del eje
+	auxMat = rotate(auxMat, radians(rotation), glm::dvec3(0.0, 0.0, 1.0));//la rotamos en el eje z
+	glLoadMatrixd(value_ptr(auxMat));//cargamos la matriz auxiliar
+	if (texture == nullptr)mesh = Mesh::generateTriPyramid(radio, altura);//creamos la piramide que recibe las transformaciones anteriores
+	else mesh = Mesh::generateTriPyramidTex(radio, altura);
+	draw();//la dibujamos*/
 }
 
 void Diabolo::render(glm::dmat4 const& modelViewMat){

@@ -33,10 +33,11 @@ public:
 	}
 	void esferaLuzSpotOnOff() { esferaLuz->spotOnOff(); }
 protected:
-	Light* directional;
+	DirLight* directional;
 	SpotLight* spot;
 	EsferaLuz* esferaLuz;
 	Camera* camera;
+	Terreno* terreno;
 	bool rotate = false;
 	bool spotEnable = true, directionalEnable = true;
 	std::vector<Entity*> objetos;

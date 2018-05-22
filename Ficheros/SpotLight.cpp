@@ -3,7 +3,6 @@
 
 SpotLight::SpotLight(GLfloat direccion[], GLfloat angulo, GLfloat exponente, glm::fvec3 pos)
 {
-	Light::Light();//llamamos a la constructora de luz
 	glLightf(id, GL_SPOT_CUTOFF, angulo);//establecemos valores del cono que forma el foco
 	glLightf(id, GL_SPOT_EXPONENT, exponente);
 	glLightfv(id, GL_SPOT_DIRECTION, direccion);

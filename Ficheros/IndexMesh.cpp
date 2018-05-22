@@ -28,6 +28,7 @@ IndexMesh* IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 	m->numVertices = nVer * nVer; // num. de vértices
 	m->vertices = new glm::dvec3[m->numVertices];
 	m->texCoords = new glm::dvec2[m->numVertices];
+	m->normals = new glm::dvec3[m->numVertices];
 
 	//recorremos el cuadrado de lado*lado
 	GLfloat z = -lado / 2;
@@ -38,12 +39,13 @@ IndexMesh* IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 			m->vertices[i * nVer + j] = glm::dvec3(x, 0, z);
 			x += incr;
 			m->texCoords[i * nVer + j] = glm::dvec2((i)*1.0/numDiv ,(j)*1.0/numDiv );
+			m->normals[i * nVer + j] = glm::dvec3(0.0);//incializamos normales a 0
 		}
 		z += incr;
 	}
 
 	// generar índices
-	m->numIndices = numDiv * numDiv * 6;; // num. de índices
+	m->numIndices = numDiv * numDiv * 6; // num. de índices
 	m->indices = new GLuint[m->numIndices];
 
 	//recorremos el cuadrado de lado*lado
@@ -83,6 +85,25 @@ IndexMesh* IndexMesh::generateTerrain() {
 	}
 	// generar coordenadas de textura -> recorrido de vértices
 	delete data;
+
 	// generar normales -> recorrido de triángulos
+	int numIndices = nDiv * nDiv * 6;
+	glm::dvec3 a, b, c, n;
+	//damos valor a las normales
+	for (int i = 0; i < numIndices; i+=3) {
+		a = m->vertices[m->indices[i]]; 
+		b = m->vertices[m->indices[i + 1]];
+		c = m->vertices[m->indices[i + 2]];
+		n = cross(b - a, c - a);
+		m->normals[m->indices[i]] += n;
+		m->normals[m->indices[i + 1]] += n;
+		m->normals[m->indices[i + 2]] += n;
+	}
+	
+	//y las normalizamos
+	for (int i = 0; i < m->numVertices; i++){
+		m->normals[i] = normalize(m->normals[i]);
+	}
+
 	return m;
 }

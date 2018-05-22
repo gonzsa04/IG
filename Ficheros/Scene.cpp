@@ -21,10 +21,10 @@ void Scene::init()
   //con un angulo de apertura, un exponente de dispersion y una posicion
 
   //materiales de los planetas (cada uno uno distinto)
-  Material mat1 = Material(glm::fvec4(30.0,10.0,1.0,1), glm::fvec4(4.0, 16.0, 22.0, 1), glm::fvec4(0.5, 5.0, 7.0, 1), 8.0);
-  Material mat2 = Material(glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(1.0, 1.0, 1.0, 1), 4.0);
-  Material mat3 = Material(glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(2.0, 2.0, 2.0, 1), 2.0);
-  Material mat4 = Material(glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), 0.0);
+  Material mat1 = Material(glm::fvec4(30.0, 10.0, 1.0, 1), glm::fvec4(4.0, 16.0, 22.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 8.0);
+  Material mat2 = Material(glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(1.0, 1.0, 1.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 4.0);
+  Material mat3 = Material(glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(2.0, 2.0, 2.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 2.0);
+  Material mat4 = Material(glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 0.0);
   //planetas
   glm::dmat4 matPos(1.0);
   glm::dmat4 auxPos(1.0);
@@ -33,15 +33,19 @@ void Scene::init()
   esfera1->setModelMat(matPos);//le asignamos la posicion
   esfera1->setMaterial(mat1);//y el material
   Entity* esfera2 = new Esfera(80, "..//Bmps/mars.bmp");
-  matPos = translate(auxPos, glm::dvec3(-100.0, -200.0, -20.0));
+  matPos = translate(auxPos, glm::dvec3(-400.0, 200.0, -20.0));
   esfera2->setModelMat(matPos);
   esfera2->setMaterial(mat2);
   Entity* esfera3 = new Esfera(60, "..//Bmps/moon.bmp");
+  matPos = translate(auxPos, glm::dvec3(-100.0, 200.0, -20.0));
+  esfera3->setModelMat(matPos);
   esfera3->setMaterial(mat3);
   esferaLuz = new EsferaLuz(150, "..//Bmps/sun.bmp");//esfera con foco apuntando hacia abajo
-  matPos = translate(auxPos, glm::dvec3(-100.0, 200.0, -20.0));
+  matPos = translate(auxPos, glm::dvec3(-100.0, 450.0, -20.0));
   esferaLuz->setModelMat(matPos);
   esferaLuz->setMaterial(mat4);
+  terreno = new Terreno("..//Bmps/BarrenReds.bmp");
+  terreno->setMaterial(mat4);
   
   // objets
   //objetos.push_back(new EjesRGB(300.0));
@@ -49,7 +53,7 @@ void Scene::init()
   objetos.push_back(esfera2);
   objetos.push_back(esfera3);
   objetos.push_back(esferaLuz);
-  objetos.push_back(new Terreno("..//Bmps/BarrenReds.bmp"));//terreno leido del .raw de Bmps con una textura
+  objetos.push_back(terreno);//terreno leido del .raw de Bmps con una textura
   //objetos.push_back(new ContRectangle(500.0, 500.0, "..//Bmps/baldosaC.bmp", 5, 5));
   //objetos.push_back(new Foto(100.0, 100.0, 1, 1));
   //objetos.push_back(new ContCubo(75.0, "..//Bmps/container.bmp"));
@@ -69,7 +73,7 @@ Scene::~Scene()
 { // free memory and resources 
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_TEXTURE_2D);//desactivamos el uso de texturas
-	glEnable(GL_LIGHTING);//desactiva la iluminación de OpenGL
+	glDisable(GL_LIGHTING);//desactiva la iluminación de OpenGL
 	glDisable(GL_NORMALIZE); //desactiva la normalización de vectores
 
 	for each (Entity* it in objetos)
