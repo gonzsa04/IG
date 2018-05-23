@@ -187,10 +187,16 @@ class EsferaLuz : public Esfera {
 private:
 	SpotLight spot;//luz de foco
 	bool spotEnable = true;
+	Esfera *esfera1, *esfera2;//las dos esferas hijas
+	glm::dvec3 posHija;//posicion de las hijas
+	void renderHijos(glm::dmat4 modelViewMat);//se encarga de pintar a las hijas
 public:
 	EsferaLuz(GLdouble r, const std::string & BMP_Name);
 	EsferaLuz(GLdouble r);
-	virtual ~EsferaLuz(){};
+	virtual ~EsferaLuz(){
+		delete esfera1;
+		delete esfera2;
+	};
 	virtual void render(glm::dmat4 const& modelViewMat);
 	virtual void setModelMat(glm::dmat4 const& mMat) { 
 		Entity::setModelMat(mMat);

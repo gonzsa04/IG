@@ -95,6 +95,16 @@ EsferaLuz::EsferaLuz(GLdouble radio, const std::string & BMP_Name) : Esfera(radi
 	GLfloat dir[] = { 0, -1, 0 };//direccion a la que apunta el foco de dentro
 	spot = SpotLight(dir, 45.0, 4.0, modelMat[3]);//el foco con la direccion, el angulo, el exponente y la pos de la esfera (para que este en su centro)
 	spot.enable();//la encendemos
+	esfera1 = new Esfera(radio / 3, BMP_Name);//inicializamos a las hijas
+	esfera2 = new Esfera(radio / 3, BMP_Name);
+	Material mat = Material(glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(3.0, 3.0, 3.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 0.0);
+	esfera1->setMaterial(mat);//les añadimos material
+	esfera2->setMaterial(mat);
+	glm::dmat4 auxPos(1.0);
+	auxPos = modelMat;
+	posHija = { radio * 1.5, 0.0, 0.0 };//las situamos una a cada lado del padre
+	esfera1->setModelMat(translate(auxPos, posHija));
+	esfera2->setModelMat(translate(auxPos, -posHija));
 }
 
 EsferaLuz::EsferaLuz(GLdouble radio) : Esfera(radio)
@@ -256,29 +266,33 @@ void Esfera::draw() {
 		texture->bind(GL_MODULATE);//MODULATE para que se mezclen los colores de la luz con los de la textura (por defecto REPLACE, que solo se verian los de la text)
 		gluQuadricTexture(quadric, GL_TRUE);//se le aplica la textura al objeto cuadrico
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		gluSphere(quadric, r, 500, 750);//se genera una esfera en el objeto cuadrico de radio r y densidad de vectores
+		gluSphere(quadric, r, r, r);//se genera una esfera en el objeto cuadrico de radio r y densidad de vectores
 		gluQuadricTexture(quadric, GL_FALSE);
 		texture->unbind();
 	}
 	else {
 		gluQuadricDrawStyle(quadric, GLU_FILL);
-		gluSphere(quadric, r, 500, 750);
+		gluSphere(quadric, r, r, r);
 	}
 }
 
 void EsferaLuz::render(glm::dmat4 const& modelViewMat) {
-	spot.load(modelViewMat);//se pinta antes el foco
+	dmat4 aMat = modelViewMat * modelMat;
+	// aplicar la trayectoria en aMat
+	spot.load(aMat);//se pinta antes el foco
 	Esfera::render(modelViewMat);
+	renderHijos(aMat);//pintamos a las hijas
+}
 
-	/*setMvM(modelViewMat);
-	//primera piramide
-	dmat4 auxMat = modelViewMat * modelMat;//creamos una matriz auxiliar
-	auxMat = translate(auxMat, glm::dvec3(100.0, 100.0, -altura));//trasladamos en z altura para que la punta quede en el centro del eje
-	auxMat = rotate(auxMat, radians(rotation), glm::dvec3(0.0, 0.0, 1.0));//la rotamos en el eje z
-	glLoadMatrixd(value_ptr(auxMat));//cargamos la matriz auxiliar
-	if (texture == nullptr)mesh = Mesh::generateTriPyramid(radio, altura);//creamos la piramide que recibe las transformaciones anteriores
-	else mesh = Mesh::generateTriPyramidTex(radio, altura);
-	draw();//la dibujamos*/
+void EsferaLuz::renderHijos(glm::dmat4 modelViewMat){
+	glm::dmat4 aMat;
+	aMat = translate(modelViewMat, posHija);
+	glLoadMatrixd(value_ptr(aMat));
+	esfera1->draw();
+
+	aMat = translate(modelViewMat, -posHija);
+	glLoadMatrixd(value_ptr(aMat));
+	esfera2->draw();
 }
 
 void Diabolo::render(glm::dmat4 const& modelViewMat){

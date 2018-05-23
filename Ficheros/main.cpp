@@ -112,6 +112,7 @@ void display()   // double buffer
     
   glutSwapBuffers();  
 }
+
 //-------------------------------------------------------------------------
 
 void resize(int newWidth, int newHeight)

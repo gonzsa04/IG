@@ -49,10 +49,10 @@ void Scene::init()
   
   // objets
   //objetos.push_back(new EjesRGB(300.0));
+  objetos.push_back(esferaLuz);//lo primero la esfera con luz para que la luz afecte a los demas
   objetos.push_back(esfera1);
   objetos.push_back(esfera2);
   objetos.push_back(esfera3);
-  objetos.push_back(esferaLuz);
   objetos.push_back(terreno);//terreno leido del .raw de Bmps con una textura
   //objetos.push_back(new ContRectangle(500.0, 500.0, "..//Bmps/baldosaC.bmp", 5, 5));
   //objetos.push_back(new Foto(100.0, 100.0, 1, 1));
