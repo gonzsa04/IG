@@ -9,7 +9,7 @@ protected:
 	static GLuint cont; // valor inicial cont = 0
 	GLuint id = GL_MAX_LIGHTS; // GL_LIGHTi
 	glm::fvec4 ambient = { 0.1, 0.1, 0.1, 1 };//intensidad de la luz
-	glm::fvec4 diffuse = { 0.5, 0.5, 0.5, 1 };
+	glm::fvec4 diffuse = { 0.8, 0.8, 0.8, 1 };
 	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 	glm::fvec4 posDir = { 0, 0, 1, 0 }; // w=0 -> vector, apuntando en z
 public:

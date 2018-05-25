@@ -278,21 +278,20 @@ void Esfera::draw() {
 
 void EsferaLuz::render(glm::dmat4 const& modelViewMat) {
 	dmat4 aMat = modelViewMat * modelMat;
+	aMat = translate(aMat, glm::dvec3(Cx*cos(ang), Cy*sin(ang)*sin(ang), Cz*sin(ang)*cos(ang)));
+	aMat = rotate(aMat, radians(rotation), glm::dvec3(0.0, 1.0, 0.0));
 	// aplicar la trayectoria en aMat
 	spot.load(aMat);//se pinta antes el foco
-	Esfera::render(modelViewMat);
+	if (texture != nullptr)texture->bind();//si hay textura la activamos
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+	if (texture != nullptr)texture->unbind();//y la desactivamos despues de dibujar (draw)
 	renderHijos(aMat);//pintamos a las hijas
 }
 
 void EsferaLuz::renderHijos(glm::dmat4 modelViewMat){
-	glm::dmat4 aMat;
-	aMat = translate(modelViewMat, posHija);
-	glLoadMatrixd(value_ptr(aMat));
-	esfera1->draw();
-
-	aMat = translate(modelViewMat, -posHija);
-	glLoadMatrixd(value_ptr(aMat));
-	esfera2->draw();
+	esfera1->render(modelViewMat);
+	esfera2->render(modelViewMat);
 }
 
 void Diabolo::render(glm::dmat4 const& modelViewMat){

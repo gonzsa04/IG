@@ -29,22 +29,24 @@ void Scene::init()
   glm::dmat4 matPos(1.0);
   glm::dmat4 auxPos(1.0);
   Entity* esfera1 = new Esfera(100, "..//Bmps/venus.bmp");//esfera de radio 149
-  matPos = translate(auxPos, glm::dvec3(300.0, 200.0, 50.0));
+  matPos = translate(auxPos, glm::dvec3(300.0, -100.0, 50.0));
   esfera1->setModelMat(matPos);//le asignamos la posicion
   esfera1->setMaterial(mat1);//y el material
   Entity* esfera2 = new Esfera(80, "..//Bmps/mars.bmp");
-  matPos = translate(auxPos, glm::dvec3(-400.0, 200.0, -20.0));
+  matPos = translate(auxPos, glm::dvec3(-400.0, -100.0, -20.0));
   esfera2->setModelMat(matPos);
   esfera2->setMaterial(mat2);
   Entity* esfera3 = new Esfera(60, "..//Bmps/moon.bmp");
-  matPos = translate(auxPos, glm::dvec3(-100.0, 200.0, -20.0));
+  matPos = translate(auxPos, glm::dvec3(-100.0, -100.0, -20.0));
   esfera3->setModelMat(matPos);
   esfera3->setMaterial(mat3);
   esferaLuz = new EsferaLuz(150, "..//Bmps/sun.bmp");//esfera con foco apuntando hacia abajo
-  matPos = translate(auxPos, glm::dvec3(-100.0, 450.0, -20.0));
+  matPos = translate(auxPos, glm::dvec3(-100.0, 150.0, -20.0));
   esferaLuz->setModelMat(matPos);
   esferaLuz->setMaterial(mat4);
   terreno = new Terreno("..//Bmps/BarrenReds.bmp");
+  matPos = translate(auxPos, glm::dvec3(0.0, -300.0, 0.0));
+  terreno->setModelMat(matPos);
   terreno->setMaterial(mat4);
   
   // objets

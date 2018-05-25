@@ -189,6 +189,11 @@ private:
 	bool spotEnable = true;
 	Esfera *esfera1, *esfera2;//las dos esferas hijas
 	glm::dvec3 posHija;//posicion de las hijas
+	const double Cx = 512;
+	const double Cy = 100;
+	const double Cz = -Cx;
+	double ang = 0;
+	GLdouble rotation = 1.0;
 	void renderHijos(glm::dmat4 modelViewMat);//se encarga de pintar a las hijas
 public:
 	EsferaLuz(GLdouble r, const std::string & BMP_Name);
@@ -206,6 +211,10 @@ public:
 		spotEnable = !spotEnable;
 		if (spotEnable)spot.enable();
 		else spot.disable();
+	}
+	virtual void update(GLuint timeElapsed) {
+		rotation = rotation + 0.1 * timeElapsed;
+		ang = ang + 0.001 * timeElapsed;
 	}
 };
 
