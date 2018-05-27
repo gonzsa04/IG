@@ -261,7 +261,7 @@ void Grass::draw() {
 }
 
 void Esfera::draw() {
-	material.load();
+	material.load();//se carga el material antes de dibujar la malla
 	if (texture != nullptr) {//si hay textura
 		texture->bind(GL_MODULATE);//MODULATE para que se mezclen los colores de la luz con los de la textura (por defecto REPLACE, que solo se verian los de la text)
 		gluQuadricTexture(quadric, GL_TRUE);//se le aplica la textura al objeto cuadrico
@@ -270,7 +270,7 @@ void Esfera::draw() {
 		gluQuadricTexture(quadric, GL_FALSE);
 		texture->unbind();
 	}
-	else {
+	else {//si no, se dibuja la esfera rellena
 		gluQuadricDrawStyle(quadric, GLU_FILL);
 		gluSphere(quadric, r, r, r);
 	}

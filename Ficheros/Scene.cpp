@@ -18,7 +18,7 @@ void Scene::init()
   GLfloat direccion[] = { 0.0, 0.0, -1.0 };//direccion a la que apuntara el foco
   directional = new DirLight(glm::fvec3(0, 0, 1));//luz direccional apuntando en el eje z
   spot = new SpotLight(direccion, 30.0, 10.0, camera->getEye());//foco que apunta en una direccion, 
-  //con un angulo de apertura, un exponente de dispersion y una posicion
+  //con un angulo de apertura, un exponente de dispersion y una posicion (en este caso el eye de la camara)
 
   //materiales de los planetas (cada uno uno distinto)
   Material mat1 = Material(glm::fvec4(30.0, 10.0, 1.0, 1), glm::fvec4(4.0, 16.0, 22.0, 1), glm::fvec4(0.0, 0.0, 0.0, 0), 8.0);
@@ -51,6 +51,7 @@ void Scene::init()
   
   // objets
   //objetos.push_back(new EjesRGB(300.0));
+  //hay que establecer las luces antes que los objetos a los que pueden iluminar
   objetos.push_back(esferaLuz);//lo primero la esfera con luz para que la luz afecte a los demas
   objetos.push_back(esfera1);
   objetos.push_back(esfera2);

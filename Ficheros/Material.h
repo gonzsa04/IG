@@ -8,7 +8,7 @@ class Material {
 private:
 	glm::fvec4 ambient, diffuse, specular; // coeficientes de reflexión
 	GLfloat expF; // exponente especular
-	GLuint face = GL_FRONT_AND_BACK; // ambos lados
+	GLuint face = GL_FRONT_AND_BACK; // el material se pone por ambos lados
 	GLuint sh = GL_SMOOTH; // smooth shading
 public:
 	Material() {};
@@ -16,6 +16,7 @@ public:
 		ambient(ambiente), diffuse(difusion), specular(especular), expF(exponene), face(cara), sh(sombreadito){};
 	~Material(){}
 	virtual void load() {
+		//establecemos coeficientes de reflexion
 		glMaterialfv(face, GL_AMBIENT, value_ptr(ambient));
 		glMaterialfv(face, GL_AMBIENT, value_ptr(diffuse));
 		glMaterialfv(face, GL_AMBIENT, value_ptr(specular));

@@ -1,7 +1,7 @@
 #pragma once
 #include "Light.h"
 
-//luzde foco
+//luz de foco, es una fuente de luz posicional
 class SpotLight:public Light{
 public:
 	//la constructora recibe direccion, angulo de apertura, exponente de dispersion y posicion

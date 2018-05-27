@@ -23,7 +23,9 @@ public:
 	~Light() { disable(); }
 	void disable() { if (id < GL_LIGHT0 + GL_MAX_LIGHTS) { glDisable(id); } };
 	void enable() { if (id < GL_LIGHT0 + GL_MAX_LIGHTS) { glEnable(id); } }; 
-	void setAmb(glm::fvec4 amb);
+	void setAmb(glm::fvec4 amb) { ambient = amb; }
+	void setDiff(glm::fvec4 diff) { diffuse = diff; }
+	void setSpec(glm::fvec4 spec) { specular = spec; }
 	virtual void load(glm::dmat4 const& modelViewMat) {
 		glLightfv(id, GL_AMBIENT, value_ptr(ambient));
 		glLightfv(id, GL_DIFFUSE, value_ptr(diffuse));
