@@ -190,7 +190,7 @@ private:
 	Esfera *esfera1, *esfera2;//las dos esferas hijas
 	glm::dvec3 posHija;//posicion de las hijas
 	const double Cx = 512;
-	const double Cy = 100;
+	const double Cy = 100;//altura a la que se encuentra el objeto
 	const double Cz = -Cx;
 	double ang = 0;
 	GLdouble rotation = 1.0;
@@ -213,8 +213,8 @@ public:
 		else spot.disable();
 	}
 	virtual void update(GLuint timeElapsed) {
-		rotation = rotation + 0.1 * timeElapsed;
-		ang = ang + 0.001 * timeElapsed;
+		rotation = rotation + 0.1 * timeElapsed;//rotacion sobre el eje y
+		ang = ang + 0.001 * timeElapsed;//angulo para hacer la trayectoria descrita
 	}
 };
 

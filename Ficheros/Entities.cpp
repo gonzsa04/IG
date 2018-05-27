@@ -278,15 +278,16 @@ void Esfera::draw() {
 
 void EsferaLuz::render(glm::dmat4 const& modelViewMat) {
 	dmat4 aMat = modelViewMat * modelMat;
+	// aplicamos la trayectoria y la rotacion en aMat
 	aMat = translate(aMat, glm::dvec3(Cx*cos(ang), Cy*sin(ang)*sin(ang), Cz*sin(ang)*cos(ang)));
 	aMat = rotate(aMat, radians(rotation), glm::dvec3(0.0, 1.0, 0.0));
-	// aplicar la trayectoria en aMat
+
 	spot.load(aMat);//se pinta antes el foco
 	if (texture != nullptr)texture->bind();//si hay textura la activamos
-	glLoadMatrixd(value_ptr(aMat));
-	draw();
+	glLoadMatrixd(value_ptr(aMat));//aplicamos aMat
+	draw();//dibujamos la esfera principal
 	if (texture != nullptr)texture->unbind();//y la desactivamos despues de dibujar (draw)
-	renderHijos(aMat);//pintamos a las hijas
+	renderHijos(aMat);//pintamos a las hijas sobre la matriz trasladada y rotada (para que sigan a la principal)
 }
 
 void EsferaLuz::renderHijos(glm::dmat4 modelViewMat){
