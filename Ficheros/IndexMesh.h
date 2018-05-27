@@ -3,10 +3,10 @@
 #include <fstream>
 
 //clase que hace mallas a partir de un .raw
-class IndexMesh : public Mesh { // Mesh incorpora la tabla de normales
+class IndexMesh : public Mesh { // Mesh incorpora la tabla de normales, vertices y textura
 protected:
-	GLuint* indices; // para la tabla de índices
-	GLuint numIndices;
+	GLuint* indices; // para la tabla de índices de cada triangulo de la malla
+	GLuint numIndices;//numero de indices: numero de triangulos en la malla*3
 	virtual void enable();
 	virtual void disable();
 public:

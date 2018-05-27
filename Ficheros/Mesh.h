@@ -31,6 +31,7 @@ public:
 
 protected:
 	void enable(){
+		//activamos tablas de vertices, normales, colores, coordenadas de textura
 		if (vertices != nullptr) {
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_DOUBLE, 0, vertices);  // number of coordinates per vertex, type of each coordinate 
@@ -50,6 +51,7 @@ protected:
 	}
 
 	void disable(){
+		//desactivamos tablas de vertices, normales, colores, coordenadas de textura
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
